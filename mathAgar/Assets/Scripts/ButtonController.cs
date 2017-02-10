@@ -12,7 +12,7 @@ public class ButtonController : MonoBehaviour {
 	public Text pIntText;
 	public Text operText;
 	public Text eIntText;
-	public bool isCorrect;
+
 
 	public void updateAnswer(){
 		string buttonText = EventSystem.current.currentSelectedGameObject.name;
@@ -32,11 +32,12 @@ public class ButtonController : MonoBehaviour {
 		}
 	}
 
-	public void checkAnswer(){
+	public bool checkAnswer(){
 		string oper = operText.text;
 		int answer = Convert.ToInt32(answerText.text);
 		int pInt = Convert.ToInt32(pIntText.text);
 		int eInt = Convert.ToInt32(eIntText.text);
+		bool isCorrect = false;
 
 		switch (oper)	{
 		case "-":
@@ -61,5 +62,6 @@ public class ButtonController : MonoBehaviour {
 			}
 			break;
 		}
+		return isCorrect;
 	}
 }

@@ -25,7 +25,7 @@ public class ModalPanel : MonoBehaviour {
 		return modalPanel;
 	}
 
-	public void Question (UnityAction enterEvent){
+	public void question (UnityAction enterEvent){
 		modalPanelObject.SetActive (true);
 
 		enter.onClick.RemoveAllListeners ();
