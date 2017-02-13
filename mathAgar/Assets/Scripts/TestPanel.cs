@@ -19,7 +19,7 @@ public class TestPanel : MonoBehaviour {
 	}
 
 	public void testEnterButton(){
-		modalPanel.question (testEnterFunction);
+		modalPanel.question (myEnterAction, "200");
 	}
 
 	void testEnterFunction(){

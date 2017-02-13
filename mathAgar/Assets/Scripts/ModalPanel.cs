@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class ModalPanel : MonoBehaviour {
 
+	public PlayerController player;
 	public Text pInt;
 	public Text oper;
 	public Text eInt;
 	public Text answer;
 	public Button enter;
 	public GameObject modalPanelObject;
+
 
 	private static ModalPanel modalPanel;
 
@@ -25,13 +27,15 @@ public class ModalPanel : MonoBehaviour {
 		return modalPanel;
 	}
 
-	public void question (UnityAction enterEvent){
+	public void question (UnityAction enterEvent, string enemyVal){
 		modalPanelObject.SetActive (true);
+		pInt.text = player.value;
+		eInt.text = enemyVal;
+		oper.text = player.oper;
 
 		enter.onClick.RemoveAllListeners ();
 		enter.onClick.AddListener (enterEvent);
 		enter.onClick.AddListener (ClosePanel);
-
 
 	}
 
