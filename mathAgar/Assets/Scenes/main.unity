@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0cbd0539b94234ba89328d34567952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1300992862}
   pInt: {fileID: 46576281}
   oper: {fileID: 733557926}
   eInt: {fileID: 880981156}
@@ -764,7 +765,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4821094673058706, guid: 5e328117530baf9499a24c0f18a9cd46, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 58759186462023062, guid: 5e328117530baf9499a24c0f18a9cd46,
         type: 2}
@@ -1269,7 +1270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &860564338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,6 +2185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonController: {fileID: 125663455}
+  value: 
+  oper: 
 --- !u!58 &1300992863
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3202,7 +3205,7 @@ Transform:
   m_LocalScale: {x: 600, y: 600, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1810811990
 BoxCollider2D:

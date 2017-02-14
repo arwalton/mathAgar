@@ -7,11 +7,15 @@ public class PlayerController : MonoBehaviour {
 	public ButtonController buttonController;
 
 	private Rigidbody2D rb;
-	private int value;
+	public string value;
+	public string oper;
 
 	private const int SPEED = 5;
 	private ModalPanel modalPanel;
 	private DisplayManager displayManager;
+	private GameObject enemy;
+
+	[SerializeField]
 	private bool isCorrect;
 
 	private UnityAction myEnterAction;
@@ -19,7 +23,8 @@ public class PlayerController : MonoBehaviour {
 
 	void Awake(){
 		rb = GetComponent<Rigidbody2D>();
-		value = 1;
+		value = "1";
+		oper = "+";
 		isCorrect = false;
 		modalPanel = ModalPanel.Instance ();
 		displayManager = DisplayManager.Instance ();
@@ -30,6 +35,13 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+	}
+
+	void Update(){
+		if (isCorrect) {
+			enemy.SetActive(false);
+			isCorrect = false;
+		}
 	}
 
 	// Controls the movement of the player
@@ -45,13 +57,20 @@ public class PlayerController : MonoBehaviour {
 
 	//Controls what happens when a player hits an enemy
 	void OnTriggerEnter2D(Collider2D other){
-		modalPanel.question (myEnterAction);
-
-//		other.gameObject.SetActive (false);
+		enemy = other.gameObject;
+		string tag = other.gameObject.tag;
+		if (tag == "Enemy") {
+			EnemyController enemy = other.GetComponent<EnemyController> ();
+			modalPanel.question (myEnterAction, enemy.value);
+		}
 	}
 
 	void checkAnswer(){
 		isCorrect = buttonController.checkAnswer ();
-		displayManager.DisplayMessage ("You did a thing, sort of...");
+		if (isCorrect) {
+			displayManager.DisplayMessage ("You did it right.");
+		} else {
+			displayManager.DisplayMessage ("NOOOOOPE.");
+		}
 	}
 }

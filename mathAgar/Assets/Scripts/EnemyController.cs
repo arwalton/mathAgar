@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 
-	public int value;
+	public string value;
 
-	// Use this for initialization
-	void Start () {
-		value = Random.Range (1, 10);
+	void Awake () {
+		value = Random.Range (1, 10).ToString();
 	}
 	
 	// Update is called once per frame
