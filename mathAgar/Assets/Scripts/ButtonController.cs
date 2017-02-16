@@ -14,7 +14,7 @@ public class ButtonController : MonoBehaviour {
 	public Text eIntText;
 
 
-	public void updateAnswer(){
+	public void UpdateAnswer(){
 		string buttonText = EventSystem.current.currentSelectedGameObject.name;
 		if (buttonText == "Delete") {
 			if (answerText.text != "0")
@@ -32,7 +32,7 @@ public class ButtonController : MonoBehaviour {
 		}
 	}
 
-	public bool checkAnswer(){
+	public bool CheckAnswer(){
 		string oper = operText.text;
 		int answer = Convert.ToInt32(answerText.text);
 		int pInt = Convert.ToInt32(pIntText.text);
