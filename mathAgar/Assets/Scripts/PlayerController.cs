@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerController : Character {
-	//public string value;
+	//public int value;
 	//protected Rigidbody2D rb;
 	public ButtonController buttonController;
 
 	public string oper;
 
-	private const float SPEED = .1f; //modifier to addForce
+	private const float SPEED = 1.5f; //modifier to addForce
 	private const float MAXSPEED = 13; //How fast the enemy is allowed to travel
 	private ModalPanel modalPanel;
 	private GameObject enemy;
@@ -76,8 +76,8 @@ public class PlayerController : Character {
 		enemy = other.gameObject;
 		string tag = other.gameObject.tag;
 		if (tag == "Enemy") {
-			EnemyController enemy = other.GetComponent<EnemyController> ();
-			modalPanel.question (myEnterAction, enemy.value);
+			EnemyController enemyCon = other.GetComponent<EnemyController> ();
+			modalPanel.question (myEnterAction, enemyCon.value);
 		}
 	}
 
@@ -97,13 +97,13 @@ public class PlayerController : Character {
 	//The player will follow the mouse or finger on the screen for movement
 	public override void Move(){
 		mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		Vector2 movement = mousePosition - transform.position;
+		Vector2 movement = (mousePosition - transform.position).normalized;
 		rb.AddForce (movement * SPEED);
 	}
 
 	public override void SetValue ()
 	{
-		value = "1";
+		value = 1;
 	}
 
 	public void SetOper(){

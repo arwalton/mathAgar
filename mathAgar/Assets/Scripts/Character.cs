@@ -4,7 +4,7 @@ using UnityEngine;
 
 abstract public class Character : MonoBehaviour {
 
-	public string value;
+	public int value;
 
 	protected Rigidbody2D rb;
 

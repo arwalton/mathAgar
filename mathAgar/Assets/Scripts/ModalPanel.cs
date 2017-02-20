@@ -27,10 +27,10 @@ public class ModalPanel : MonoBehaviour {
 		return modalPanel;
 	}
 
-	public void question (UnityAction enterEvent, string enemyVal){
+	public void question (UnityAction enterEvent, int enemyVal){
 		modalPanelObject.SetActive (true);
-		pInt.text = player.value;
-		eInt.text = enemyVal;
+		pInt.text = player.value.ToString();
+		eInt.text = enemyVal.ToString();
 		oper.text = player.oper;
 
 		enter.onClick.RemoveAllListeners ();
