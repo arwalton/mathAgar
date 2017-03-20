@@ -32,7 +32,7 @@ public class ButtonController : MonoBehaviour {
 		}
 	}
 
-	public bool CheckAnswer(){
+	public void CheckAnswer(){
 		string oper = operText.text;
 		int answer = Convert.ToInt32(answerText.text);
 		int pInt = Convert.ToInt32(pIntText.text);
@@ -62,6 +62,10 @@ public class ButtonController : MonoBehaviour {
 			}
 			break;
 		}
-		return isCorrect;
+		if (isCorrect) {
+			EventManager.TriggerEvent ("Correct");
+		} else {
+			EventManager.TriggerEvent ("Incorrect");
+		}
 	}
 }

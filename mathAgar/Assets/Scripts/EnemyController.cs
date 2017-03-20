@@ -2,40 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//*****Important*****
+//Enemies must be spawned with 
+
 public class EnemyController : Character {
 	//public int value;
-
-
 	//protected RigidBody2D rb;
 
-	private GameObject closestObject;
+	//private GameObject closestObject;
+	private EnemyMoveTrigger movementTrigger; //****When you instantiate an enemy, you must make a
+										//movement trigger first, or else it will totally break.
 
 	private const float TARDELAY = 5f; //How many seconds before getting a new target
 	private const float MAXSPEED = 10; //How fast the enemy is allowed to travel
 	private const float SPEED = 1f; //The modifier to addForce
 	private const float DETECTIONRADIUS = 20f;
+	private const float TILESKIP = 2.4f;
 
-	[SerializeField]
-	private Vector3 target;
+//	[SerializeField]
+//	private Vector3 target;
 
 	void Awake () {
-		rb = GetComponent<Rigidbody2D>();
+//		rb = GetComponent<Rigidbody2D>();
+		movementTrigger = GetMovementTrigger();
 		SetValue ();
 	}
 
 	void Start(){
-		InvokeRepeating("SetRandomTarget", 0f, TARDELAY);
+//		InvokeRepeating("SetRandomTarget", 0f, TARDELAY);
+		StartMoving();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (rb.velocity.magnitude > MAXSPEED) {
-			rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAXSPEED);
-		}
+//		if (rb.velocity.magnitude > MAXSPEED) {
+//			rb.velocity = Vector3.ClampMagnitude (rb.velocity, MAXSPEED);
+//		}
 
 	}
 
-	void LateUpdate(){
+	void FixedUpdate(){
 		Move ();
 	}
 
@@ -45,14 +51,36 @@ public class EnemyController : Character {
 	}
 
 	public override void Move (){
-		Collider2D[] nearChars = Physics2D.OverlapCircleAll (transform.position, DETECTIONRADIUS);
+		if (transform.position.x - movementTrigger.transform.position.x > TILESKIP / 2) {
+			transform.position += new Vector3 (-TILESKIP, 0, 0);
+		} else if (transform.position.x - movementTrigger.transform.position.x < -TILESKIP / 2) {
+			transform.position += new Vector3 (TILESKIP, 0, 0);
+		}
+
+		if (transform.position.y - movementTrigger.transform.position.y > TILESKIP / 2) {
+			transform.position += new Vector3 (0, -TILESKIP, 0);
+		} else if (transform.position.y - movementTrigger.transform.position.y < -TILESKIP / 2) {
+			transform.position += new Vector3 (0, TILESKIP, 0);
+		}
+
+/*
+ * Little bit of testing here, I'm going to add an enemy movement trigger to the enemy and see if
+ * it will follow it the way that the player does.
+ * 
+		Collider2D[] nearChars = Physics2D.OverlapCircleAll (transform.position, DETECTIONRADIUS,8);
 	//	Debug.Log (nearChars.Length);
 		if (nearChars.Length > 1) {
 			closestObject = GetClosestObject (nearChars);
 			SetTarget (closestObject.transform.position);
+			if (closestObject.tag == "Enemy") {
+				Flee ();
+			} else {
+				//Add more logic here to make it chase player sometimes and not other times.
+				Seek ();
+			}
+		} else {
+			Seek ();
 		}
-		//Seek ();
-		Flee();
 	}
 
 	//Go to the target point
@@ -89,17 +117,21 @@ public class EnemyController : Character {
 				}
 			}
 		}
-		return closestObject;
+		return closestObject;*/
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
-
+	EnemyMoveTrigger GetMovementTrigger(){
+		GameObject[] moveTriggers = GameObject.FindGameObjectsWithTag("EnemyMoveTrigger");
+		foreach (GameObject trig in moveTriggers) {
+			if (trig.transform.position == transform.position) {
+				movementTrigger = trig.GetComponent<EnemyMoveTrigger> ();
+				break;
+			}
+		}
+		return movementTrigger;
 	}
 
-	public void EnemyCollision(GameObject other){
-		int otherValue = other.gameObject.GetComponent (value);
-		value += otherValue;
-		other.gameObject.SetActive (false);
+	void StartMoving(){
+		movementTrigger.StartMoving ();
 	}
-	
 }

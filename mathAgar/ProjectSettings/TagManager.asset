@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Spawner
+  - EnemyMoveTrigger
+  - MoveTrigger
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Character
   - 
   - 
   - 

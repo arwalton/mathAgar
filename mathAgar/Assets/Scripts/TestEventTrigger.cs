@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventTriggerTest : MonoBehaviour {
+public class TestEventTrigger : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetKeyDown ("q")) {

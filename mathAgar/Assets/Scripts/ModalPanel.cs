@@ -32,6 +32,7 @@ public class ModalPanel : MonoBehaviour {
 		pInt.text = player.value.ToString();
 		eInt.text = enemyVal.ToString();
 		oper.text = player.oper;
+		answer.text = "0";
 
 		enter.onClick.RemoveAllListeners ();
 		enter.onClick.AddListener (enterEvent);
